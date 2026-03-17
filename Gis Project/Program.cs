@@ -1,13 +1,36 @@
+using Gis_Project.Context;
+using Gis_Project.Models;
+using Gis_Project.SeedData;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
 namespace Gis_Project
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async  Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //register identity services 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(op =>
+            {
+                op.Password.RequiredLength = 4;
+                op.Password.RequireNonAlphanumeric = false;
+                op.Password.RequireUppercase = false;
+                op.Password.RequireLowercase = false;
+                op.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<GisContext>();
+
+            //DBContext
+            builder.Services.AddDbContext<GisContext>(op =>
+            {
+                op.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
+            });
 
             var app = builder.Build();
 
@@ -19,9 +42,36 @@ namespace Gis_Project
                 app.UseHsts();
             }
 
+            using var scope = app.Services.CreateScope();
+
+            //Apply migrations at startup
+            var dbContext = scope.ServiceProvider.GetRequiredService<GisContext>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userRole = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            try
+            {
+
+                await dbContext.Database.MigrateAsync();
+                await SeedData.SeedData.SeedAppAsync(userManager, userRole, dbContext);
+
+                var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+                var logger = loggerFactory.CreateLogger<Program>();
+                logger.LogInformation("Migrate and seed data succeeded.");
+            }
+            catch (Exception ex)
+            {
+                //Log errors or handle them as needed
+                var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+                var logger = loggerFactory.CreateLogger<Program>();
+
+                logger.LogError(ex, "An error occurred while migrating the database.");
+            }
+
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
@@ -30,6 +80,7 @@ namespace Gis_Project
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
+            
             app.Run();
         }
     }
