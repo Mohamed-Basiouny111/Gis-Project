@@ -1,20 +1,25 @@
-using System.Diagnostics;
 using Gis_Project.Models;
+using Gis_Project.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Gis_Project.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUnitOfWork _unitOfWork, ILogger<HomeController> logger)
         {
+            unitOfWork = _unitOfWork;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
+           
             return View();
         }
 

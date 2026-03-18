@@ -1,0 +1,11 @@
+﻿@model Gis_Project.Models.Region
+<div class="row w-100">
+    <div class="input col-lg-12">
+        <h5>الإسم:</h5>
+        <input asp-for="Name" id="Name" type="text" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+
+    </div>
+</div>
+
+<input type="submit" value="إضافة" />

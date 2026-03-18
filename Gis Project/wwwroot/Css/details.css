@@ -1,0 +1,499 @@
+main {
+    padding-top: 80px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.image-slider {
+    margin: 4rem 0;
+}
+
+    .image-slider .slide-container {
+        position: relative;
+    }
+
+    .image-slider .slide-content {
+        padding-bottom: 32px;
+        overflow: hidden;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 20px 0px;
+        border-radius: 30px;
+    }
+
+    .image-slider .card {
+        border-radius: 25px;
+        height: 400px;
+        background: url("../Images/1727801573.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+    }
+
+    .image-slider .swiper-button-next,
+    .image-slider .swiper-button-prev {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--light-line-color);
+        color: var(--light-blue-color);
+    }
+
+    .image-slider .swiper-button-next {
+        left: 1rem;
+    }
+
+    .image-slider .swiper-button-prev {
+        right: 1rem;
+    }
+
+        .image-slider .swiper-button-next::after,
+        .image-slider .swiper-button-prev::after {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+.swiper-pagination-bullet {
+    background: var(--light-blue-color);
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    transition-property: width;
+    transition-duration: var(--main-transition);
+}
+
+.swiper-pagination-bullet-active {
+    width: 25px;
+}
+
+main .description,
+main .exp-date,
+main .amount,
+main .location {
+    position: relative;
+    border: 1px solid var(--line-color);
+    border-radius: 15px;
+    padding: 1rem 2rem;
+    margin: 2rem 0;
+}
+
+    main .description > * {
+        margin: 8px 0;
+    }
+
+    main .description h2 {
+        color: var(--light-blue-color);
+    }
+
+    main .description .date {
+        font-size: 14px;
+        color: var(--paragraph-color);
+    }
+
+    main .description .desc {
+        font-weight: 600;
+        color: var(--header-color);
+    }
+
+main .hospital {
+    color: var(--header-color);
+}
+
+    main .hospital i {
+        color: var(--paragraph-color);
+        font-size: 18px;
+        margin-left: 5px;
+    }
+
+main .description .fav {
+    position: absolute;
+    top: 25px;
+    left: 2rem;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--header-color);
+}
+
+main .exp-date,
+main .amount {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    color: var(--light-blue-color);
+}
+
+    main .exp-date span,
+    main .amount span {
+        font-weight: 600;
+        color: var(--header-color);
+    }
+
+main .location h3 {
+    color: var(--light-blue-color);
+    margin-bottom: 10px;
+}
+
+main .location iframe {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 2rem;
+}
+
+main .book-medicine {
+    color: #fff;
+    padding: 7px 65px;
+    margin: 3rem 0 5rem;
+    border-radius: 35px;
+    background: linear-gradient(90deg, #168625 30.45%, #0a130a 198.59%);
+    box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    transition-property: opacity;
+    transition-duration: var(--main-transition);
+    cursor: pointer;
+}
+
+    main .book-medicine:hover {
+        opacity: 0.8;
+    }
+
+.accordion-body li {
+    margin-right: 10px;
+    font-size: 23px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.accordion-body span {
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    opacity: 0.7;
+    color: var(--text-color);
+}
+
+/* End Medicine Description Style */
+@media (max-width: 767px) {
+
+    .image-slider .swiper-button-next,
+    .image-slider .swiper-button-prev {
+        width: 40px;
+        height: 40px;
+    }
+
+    .image-slider .swiper-button-next {
+        left: -10px;
+    }
+
+    .image-slider .swiper-button-prev {
+        right: -10px;
+    }
+
+        .image-slider .swiper-button-next::after,
+        .image-slider .swiper-button-prev::after {
+            font-size: 16px;
+        }
+
+    .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+    }
+
+    .swiper-pagination-bullet-active {
+        width: 20px;
+    }
+
+    main .description,
+    main .exp-date,
+    main .amount,
+    main .location {
+        padding: 1rem;
+    }
+
+        main .description h2 {
+            font-size: 18px;
+        }
+
+        main .description .desc,
+        main .hospital,
+        main .exp-date span,
+        main .amount span {
+            font-size: 14px;
+        }
+
+        main .exp-date h3,
+        main .amount h3,
+        main .location h3 {
+            font-size: 16px;
+        }
+
+    main .book-medicine {
+        margin: 3rem auto 5rem;
+        padding: 7px 50px;
+    }
+}
+
+/* Start Adding Alert Style */
+.add-alert {
+    background-color: var(--background-color);
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    text-align: center;
+    width: 80%;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, 50%);
+    transition-property: left;
+    transition-duration: var(--main-transition);
+    max-height: calc(100vh - 4rem);
+    overflow-y: scroll;
+    z-index: 1001;
+}
+
+.alert-overlay {
+    position: absolute;
+    background-color: var(--layer-background-color);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: none;
+}
+
+.home-btn {
+    position: absolute;
+    color: var(--header-color);
+    font-size: 25px;
+    left: 30px;
+    top: 20px;
+    cursor: pointer;
+}
+
+.add-alert h2 {
+    color: var(--header-color);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.add-alert > span:last-of-type {
+    font-size: 14px;
+    color: var(--paragraph-color);
+}
+
+.add-alert form {
+    margin-top: 1rem;
+}
+
+.add-alert .input {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+    .add-alert .input:last-of-type {
+        align-items: flex-start;
+    }
+
+    .add-alert .input h5 {
+        margin-left: 2rem;
+        width: 160px;
+        color: var(--header-color);
+        font-size: 1rem;
+        text-align: right;
+    }
+
+.add-alert input:not(input[type="submit"]),
+.add-alert textarea {
+    border: 1px solid var(--line-color);
+    padding: 10px;
+    width: 700px;
+    border-radius: 10px;
+    caret-color: var(--light-blue-color);
+    font-size: 14px;
+    resize: vertical;
+    direction: rtl;
+    color: var(--header-color);
+}
+
+.add-alert input:not(input[disabled]),
+.add-alert textarea {
+    background-color: var(--background-color);
+}
+
+.add-alert input[type="text"]:focus {
+    border-color: var(--light-blue-color);
+}
+
+.add-alert input[type="submit"] {
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #2490eb 30.45%, #14467b 198.59%);
+    box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.2);
+    padding: 8px 40px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    transition-property: opacity;
+    transition-duration: var(--main-transition);
+    margin: 2rem auto 0;
+}
+
+    .add-alert input[type="submit"]:hover {
+        opacity: 0.8;
+    }
+
+@media (max-width: 768px) {
+    .add-alert {
+        width: calc(100% - 2rem);
+        padding: 1rem;
+    }
+
+    .home-btn {
+        left: 20px;
+        top: 10px;
+    }
+
+    .add-alert h2 {
+        font-size: 20px;
+    }
+
+    .add-alert > span:last-of-type {
+        line-height: 2;
+        display: block;
+    }
+
+    .add-alert .input {
+        margin: 1rem 0;
+        flex-direction: column;
+    }
+
+        .add-alert .input:last-of-type {
+            align-items: center;
+        }
+
+        .add-alert .input h5 {
+            margin: 0 0 10px;
+            width: fit-content;
+        }
+
+    .add-alert input:not(input[type="submit"]),
+    .add-alert textarea {
+        width: 100%;
+    }
+}
+
+
+
+.sub-btn {
+    padding: 10px 23px;
+    font-size: 19.2px;
+    font-weight: 400;
+    color: var(--text-color);
+    background-color: #168625;
+    border: solid 0.35rem var(--background-color);
+    transition: 0.6s;
+}
+
+    .sub-btn:hover {
+        transition: 0.6s;
+        opacity: 0.75;
+        border: solid 0.35rem #1c55269c;
+    }
+
+
+
+
+
+.payment-details {
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    display: none;
+}
+
+    .payment-details h2 {
+        color: var(--text-color);
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--paragraph-color);
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        border-radius: 5px;
+        font-size: 1em;
+    }
+
+    .form-group .expiration-date {
+        display: flex;
+        gap: 10px;
+    }
+
+.file-input {
+    text-align: right;
+    background-color: var(--background-color);
+    border: 1px solid var(--line-color);
+    padding: 5px 5px;
+    position: relative;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+
+    .file-input > [type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    .file-input > .button {
+        display: inline-block;
+        cursor: pointer;
+        background: var(--footer-back-color);
+        padding: 8px 16px;
+        border-radius: 5px;
+        margin-left: 10px;
+        transition-property: background;
+        transition-duration: var(--main-transition);
+        color: var(--header-color);
+    }
+
+    .file-input:hover > .button {
+        background: var(--light-blue-color);
+        color: white;
+    }
+
+    .file-input > .label {
+        color: var(--header-color);
+        white-space: nowrap;
+        opacity: 0.5;
+    }
+
+    .file-input.-chosen > .label {
+        opacity: 1;
+    }
+
+/* End Adding Alert Style */

@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+ @if (SignInManager.IsSignedIn(User))
+{
+     <div class="user">
+        <div class="user-info">
+            <i class="fa-solid fa-angle-down"></i>
+
+            <span>@User.FindFirst("FullName")?.Value</span>
+
+            <img src="~/Images/user.jpg" alt="User Image" />
+        </div>
+        <ul>
+          
+            <li>
+                <a href="/Profile/Index">
+                    <i class="fa-solid fa-user"></i>
+                    الصفحة الشخصية
+                </a>
+            </li>
+
+            <li>
+
+
+                <form asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+
+                    <button type="submit" asp-controller="Account" asp-action="Logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        تسجيل الخروج
+                    </button>
+
+                </form>
+
+            </li>
+        </ul>
+    </div>
+
+}
+else
+{ 
+    <div class="login-btns">
+        <a asp-controller="Account" asp-action="Register">إنشاء حساب</a>
+        <a asp-controller="Account" asp-action="Login">تسجيل الدخول</a>
+    </div>
+ }  

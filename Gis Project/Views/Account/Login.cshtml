@@ -1,0 +1,70 @@
+﻿@model LoginVM
+
+
+@{
+    ViewData["Title"] = "تسجيل الدخول";
+    Layout = "_AccountLayout";
+
+}
+
+<div class="sidebar">
+    <ul>
+        <li>
+            <a href="/Account/Login" class="active">تسجيل الدخول<span></span></a>
+        </li>
+        <li>
+            <a href="/Account/Register">إنشاء حساب</a>
+        </li>
+    </ul>
+</div>
+
+<div class="form">
+    <h1>مرحبًا بك !</h1>
+    <p>قم بإدخال بيانات الشخصية و احجز  معنا</p>
+
+    <form method="post">
+
+        <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+        <input type="hidden" asp-for="ReturnUrl" value="@ViewData["ReturnUrl"]" />
+
+        <div class="inputs">
+            <input asp-for="UserName" type="text" autocomplete="username" aria-required="true" placeholder="البريد الإلكتروني أو اسم المستخدم" required />
+            <i class="fa-solid fa-at"></i>
+            
+
+        </div>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+
+        <div class="inputs">
+            <input asp-for="Password" type="password" autocomplete="current-password" aria-required="true" placeholder="كلمة المرور" required />
+            <i class="fa-solid fa-lock"></i>
+
+
+        </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+
+        <div class="remember">
+            <label asp-for="RememberMe">
+                <input class="form-check-input" asp-for="RememberMe" />
+
+                <span>تذكرنى دائماً</span>
+
+            </label>
+        </div>
+
+        <div class="btns">
+            <input type="submit" value="تسجيل الدخول" />
+
+            @* <a href="./ForgotPassword">هل نسيت كلمة المرور؟</a> *@
+
+        </div>
+
+
+    </form>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

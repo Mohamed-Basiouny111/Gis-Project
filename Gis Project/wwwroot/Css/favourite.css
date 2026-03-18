@@ -1,0 +1,133 @@
+/* Start Main Style */
+main {
+  padding-top: 120px;
+}
+main .page-header {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--header-color);
+}
+.medicine-slider {
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
+  margin: 3rem 0;
+  /* height: 1000px; */
+  overflow-y: hidden;
+  background-color: var(--section-back-color);
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.medicine-content .medicine-slider::-webkit-scrollbar {
+  width: 0;
+}
+.medicine-slider .medicine-card {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem 3rem;
+  border-bottom: 1px solid var(--line-color);
+  background-color: var(--background-color);
+  transition-property: transform;
+  transition-duration: var(--main-transition);
+}
+.medicine-slider .medicine-card:hover {
+  /* transform: scale(1.01);
+  border: 1px solid var(--line-color);
+  box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.2); */
+}
+.medicine-slider .medicine-card .medicine-image {
+  max-height: 200px;
+  border-radius: 50px 0px;
+  background: #a0a0a0;
+  box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.2);
+}
+.medicine-slider .medicine-card .card-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+.medicine-slider .medicine-card .card-content h2 {
+  font-size: 20px;
+  color: var(--header-color);
+}
+.medicine-slider .medicine-card .card-content div {
+  color: var(--header-color);
+}
+.medicine-slider .medicine-card .card-content div i {
+  color: var(--paragraph-color);
+  margin-left: 5px;
+}
+.medicine-slider .medicine-card .card-content .date {
+  font-size: 14px;
+  color: var(--paragraph-color);
+  margin-right: 20px;
+}
+.medicine-slider .medicine-card .card-content .book-btn {
+  color: #fff;
+  padding: 7px 50px;
+  margin-top: 1rem;
+  border-radius: 35px 0px;
+  background: linear-gradient(90deg, #217e19 30.45%, #14467b 198.59%);
+  box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.2);
+  width: fit-content;
+  transition-property: opacity;
+  transition-duration: var(--main-transition);
+}
+.medicine-slider .medicine-card .card-content .book-btn:hover {
+  opacity: 0.8;
+}
+.medicine-slider .medicine-card .card-content .fav {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  font-size: 20px;
+  padding: 3px;
+  color: #d80032;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  main .page-header {
+    font-size: 30px;
+    text-align: center;
+  }
+  main .images-gridview {
+    height: 220px;
+  }
+  main .page-desc {
+    font-size: 14px;
+  }
+
+  .medicine-content .filter .select-filters .select select {
+    padding: 5px 10px 5px 30px;
+  }
+
+  .medicine-content .filter {
+    flex-direction: column;
+  }
+  .medicine-content .filter .searcher {
+    margin-top: 1rem;
+  }
+  .medicine-content .filter .searcher input {
+    width: 250px;
+    padding: 0 1rem;
+    border-right: 1px solid var(--light-blue-color);
+  }
+  .medicine-content .filter .searcher a {
+    display: block;
+  }
+  .medicine-slider {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .medicine-slider .medicine-card {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  .medicine-slider .medicine-card .card-content .book-btn {
+    margin: 2rem auto 0;
+  }
+}

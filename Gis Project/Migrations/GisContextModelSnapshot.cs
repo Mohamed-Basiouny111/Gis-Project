@@ -41,18 +41,13 @@ namespace Gis_Project.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FUllName")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
                     b.Property<bool?>("IsBlocked")
                         .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

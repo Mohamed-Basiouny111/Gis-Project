@@ -10,7 +10,7 @@ namespace Gis_Project.SeedData
         {
             if (!roleManager.Roles.Any())
             {
-                var roles = new List<string> { "Admin", "Collector" };
+                var roles = new List<string> { "Admin", "Collector", "NewUser" };
                 foreach (var role in roles)
                 {
                     if (!await roleManager.RoleExistsAsync(role))
@@ -25,8 +25,7 @@ namespace Gis_Project.SeedData
                 var admin = new ApplicationUser
                 {
                     Email = "admin@gmail.com",
-                    FirstName = "Admin",
-                    LastName = "Admin",
+                    FUllName = "Admin",
                     UserName = "admin",
                     PhoneNumber = "1234567890",    
                     IsBlocked = false,      
@@ -37,8 +36,7 @@ namespace Gis_Project.SeedData
                 var student = new ApplicationUser
                 {
                     Email = "user1@gmail.com",
-                    FirstName = "user1",
-                    LastName = "user1",
+                    FUllName = "user1",
                     UserName = "user1",
                     PhoneNumber = "1234567890",               
                    IsBlocked = false,
@@ -49,14 +47,13 @@ namespace Gis_Project.SeedData
                 var service = new ApplicationUser
                 {
                     Email = "user2@gmail.com",
-                    FirstName = "user2",
-                    LastName = " user2",
+                    FUllName = "user2",
                     UserName = "user2",
                     PhoneNumber = "1234567890",                
                     IsBlocked = false,
                 };
                 await userManager.CreateAsync(service, "P@ssW0rd");
-                await userManager.AddToRoleAsync(service, "Collector");
+                await userManager.AddToRoleAsync(service, "NewUser");
 
             }
 

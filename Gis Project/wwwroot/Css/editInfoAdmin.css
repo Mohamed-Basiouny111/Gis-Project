@@ -1,0 +1,372 @@
+.edit-alert {
+    background-color: var(--background-color);
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    text-align: center;
+    width: 80%;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, 50%);
+    transition-property: left;
+    transition-duration: 0.5s;
+    max-height: calc(100vh - 4rem);
+    overflow-y: scroll;
+}
+
+.home-btn {
+    position: absolute;
+    color: var(--text-color);
+    font-size: 25px;
+    left: 30px;
+    top: 20px;
+    cursor: pointer;
+}
+
+.edit-alert h2 {
+    color: var(--text-color);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.edit-alert > span:last-of-type {
+    font-size: 14px;
+    color: var(--paragraph-color);
+}
+
+.edit-alert form {
+    margin-top: 3rem;
+}
+
+.edit-alert .input {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+    .edit-alert .input h5 {
+        margin-left: 2rem;
+        width: 160px;
+        color: var(--text-color);
+        font-size: 1rem;
+        text-align: right;
+    }
+
+.edit-alert input:not(input[type="submit"]) {
+    border: 1px solid var(--line-color);
+    padding: 10px;
+    width: 700px;
+    border-radius: 10px;
+    caret-color: var(--light-blue-color);
+    font-size: 14px;
+    resize: vertical;
+    direction: rtl;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+    .edit-alert input:not(input[type="submit"]):focus {
+        border-color: var(--light-blue-color);
+    }
+
+.edit-alert input[type="submit"] {
+    border: none;
+    border-radius: 30px;
+    background: var(--light-blue-color);
+    box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.2);
+    padding: 8px 40px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    transition-property: opacity;
+    transition-duration: var(--main-transition);
+    margin: 2rem auto 0;
+}
+
+    .edit-alert input[type="submit"]:hover {
+        opacity: 0.8;
+    }
+
+/* Start Adding Alert Style */
+
+
+
+
+.content-container h3 {
+    margin-bottom: 2rem;
+    color: var(--light-blue-color);
+    font-weight: 700;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.content-container .input {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+    .content-container .input:last-of-type {
+        align-items: flex-start;
+    }
+
+        .content-container .input:last-of-type h5 {
+            margin-top: 5px;
+        }
+
+    .content-container .input h5 {
+        margin-left: 20px;
+        width: 75px;
+        color: var(--text-color);
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+.content-container input[type="text"] {
+    border: 1px solid var(--line-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    caret-color: var(--light-blue-color);
+    font-size: 12px;
+}
+
+.content-container input[type="number"] {
+    border: 1px solid var(--line-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    caret-color: var(--light-blue-color);
+    font-size: 12px;
+}
+
+
+.content-container textarea {
+    border: 1px solid var(--line-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px;
+    width: 100%;
+    height: 20vh;
+    border-radius: 10px;
+    caret-color: var(--light-blue-color);
+    font-size: 12px;
+}
+
+.content-container select {
+    border: 1px solid var(--line-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    caret-color: var(--light-blue-color);
+    font-size: 12px;
+    direction: rtl;
+}
+
+    .content-container input[type="text"]:focus, .content-container select:focus, .content-container textarea:focus {
+        border-color: var(--light-blue-color);
+        box-shadow: none;
+    }
+
+.content-container input[type="date"] {
+    border: 1px solid var(--line-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    caret-color: var(--light-blue-color);
+    font-size: 12px;
+    text-align: right;
+}
+
+.content-container input[type="datetime-local"] {
+    border: 1px solid var(--line-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    caret-color: var(--light-blue-color);
+    font-size: 12px;
+    text-align: right;
+}
+
+.content-container .file-input {
+    display: inline-block;
+    text-align: right;
+    background-color: var(--background-color);
+    border: 1px solid var(--line-color);
+    padding: 5px 5px;
+    width: 100%;
+    position: relative;
+    border-radius: 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+    .content-container .file-input > [type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    .content-container .file-input > .button {
+        display: inline-block;
+        cursor: pointer;
+        background: var(--footer-back-color);
+        padding: 8px 16px;
+        border-radius: 5px;
+        margin-left: 10px;
+        transition-property: background;
+        transition-duration: var(--main-transition);
+        color: var(--text-color);
+    }
+
+    .content-container .file-input:hover > .button {
+        background: var(--light-blue-color);
+        color: white;
+    }
+
+    .content-container .file-input > .label {
+        color: var(--text-color);
+        white-space: nowrap;
+        opacity: 0.5;
+    }
+
+    .content-container .file-input.-chosen > .label {
+        opacity: 1;
+    }
+
+.tox-tinymce {
+    width: 100% !important;
+    font-size: 12px !important;
+}
+
+.tox .tox-tbtn,
+.tox .tox-mbtn {
+    margin: 0 !important;
+}
+
+.tox .tox-collection--list .tox-collection__item {
+    padding: 0 5px !important;
+}
+
+.tox :not(svg):not(rect) {
+    font-size: 12px !important;
+}
+
+.tox .tox-toolbar__group {
+    padding: 0 !important;
+    background-color: white;
+}
+
+.tox:not([dir="rtl"]) .tox-statusbar__branding,
+.tox .tox-statusbar__resize-handle {
+    display: none !important;
+}
+
+.mce-content-body {
+    font-size: 14px !important;
+}
+
+.tox .tox-notification--warn,
+.tox .tox-notification--warning {
+    width: 0;
+    overflow: hidden;
+    padding: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.content-container input[type="submit"] {
+    border: none;
+    border-radius: 30px;
+    background: var(--light-blue-color);
+    box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.2);
+    padding: 8px 40px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    transition-property: opacity;
+    transition-duration: var(--main-transition);
+    margin: 2rem auto 0;
+}
+
+    .content-container input[type="submit"]:hover {
+        opacity: 0.8;
+    }
+/* End Adding Alert Style */
+
+@media (max-width: 768px) {
+    .edit-alert,
+    .content-container {
+        width: calc(100% - 2rem);
+        padding: 1rem;
+    }
+
+    .home-btn {
+        left: 20px;
+        top: 10px;
+    }
+
+    .edit-alert h2,
+    .content-container h2 {
+        font-size: 20px;
+    }
+
+    .edit-alert form,
+    .content-container form {
+        margin-top: 20px;
+    }
+
+    .edit-alert > span:last-of-type,
+    .content-container > span:last-of-type {
+        line-height: 2;
+        display: block;
+    }
+
+    .edit-alert .input,
+    .content-container .input {
+        margin: 1rem 0;
+        flex-direction: column;
+    }
+
+    .content-container .file-input {
+        width: 100%;
+    }
+
+    .edit-alert .input:last-of-type,
+    .content-container .input:last-of-type {
+        align-items: center;
+    }
+
+    .edit-alert .input h5,
+    .content-container .input h5 {
+        margin: 0 0 10px;
+        width: fit-content;
+        font-size: 12px;
+    }
+
+    .edit-alert input:not(input[type="submit"]),
+    .content-container input:not(input[type="submit"]) {
+        width: 100%;
+        font-size: 10px;
+    }
+
+    .tox-tinymce {
+        width: 100% !important;
+    }
+}

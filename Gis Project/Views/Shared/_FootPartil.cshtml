@@ -1,0 +1,92 @@
+﻿
+<div class="container-fluid ">
+    <div class="logo-content">
+        <br />
+        <img class="logoo" src="~/Images/master-card-pay.svg" alt="Logo" />
+        <br>
+        <br>
+        <br>
+        <br>
+        <p>
+            موقع دفع الاقساط داخل جمهورية مصر العربية 
+        </p>
+    </div>
+
+    <div class="links">
+        <div class="link">
+            <h3>الشركة</h3>
+            <ul>
+                <li><a href="#">معلومات عنا</a></li>
+                <li><a href="#"> الأسئلة المتكررة</a></li>
+
+                <li><a href="#">تعليق المستخدمين</a></li>
+
+
+            </ul>
+        </div>
+        <div class="link">
+            <h3>الدعم</h3>
+            <ul>
+                <li><a href="#">اتصل بنا</a></li>
+
+                <li><a href="#"> شروط الخدمة</a></li>
+                <li><a href="#">قانونى </a></li>
+
+            </ul>
+        </div>
+
+        <div class="link">
+            <h3>اللغة</h3>
+            <ul>
+                <li><a href="#">العربية</a></li>
+            </ul>
+        </div>
+
+
+
+    </div>
+
+    <div class="subscribe-us ">
+        <h3>الإشتراك</h3>
+
+        <form class="sub-input" method="post" asp-controller="Subscribe" asp-action="AddSubscriber">
+
+            <input name="SubEmail" id="SubEmail" type="email" placeholder="عنوان بريدك الإلكتروني" required />
+
+            <button style="background-color: #217e19;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <g clip-path="url(#clip0_185_251)">
+                        <path d="M18.7231 1.12867L5.09167 12.4887M8.3031 15.7144L11.4145 18.8115C11.6056 19.0074 11.8445 19.1499 12.1076 19.2251C12.3707 19.3003 12.6488 19.3054 12.9145 19.2401C13.1817 19.1779 13.4283 19.0479 13.6307 18.8628C13.8331 18.6776 13.9845 18.4435 14.0702 18.183L19.1788 2.86867C19.2857 2.58185 19.3079 2.27035 19.2428 1.97126C19.1777 1.67218 19.028 1.3981 18.8115 1.18166C18.5951 0.96522 18.321 0.815534 18.0219 0.750422C17.7229 0.685309 17.4114 0.707513 17.1245 0.814389L1.81024 5.92439C1.54071 6.01624 1.3006 6.17842 1.11475 6.39416C0.928894 6.6099 0.804041 6.87137 0.753099 7.15153C0.700482 7.40652 0.712103 7.67058 0.786916 7.91996C0.861729 8.16933 0.997384 8.39619 1.18167 8.5801L5.09167 12.4901L4.9631 17.4415L8.3031 15.7144Z"
+                              stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_185_251">
+                            <rect width="20" height="20" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </button>
+        </form>
+
+        <ul style="font-size:19.2px;list-style-type: none;position: relative;left:-30px; color: var(--text-color);"
+            class="d-flex gap-4 mt-4 socials">
+            <li><i class="fa-brands fa-facebook"></i></li>
+            <li><i class="fa-brands fa-instagram"></i></li>
+            <li><i class="fa-brands fa-twitter"></i></li>
+            <li><i class="fa-brands fa-linkedin"></i></li>
+        </ul>
+    </div>
+</div>
+
+<div class="payment container-fluid d-flex justify-content-center">
+    <div class="link  ">
+
+        <ul class="row gx-4  flex-column flex-sm-row gy-2">
+            <li class="col-4"><img src="~/./Images/visa-pay.svg" alt="visa"></li>
+
+
+            <li class="col-4"><img src="~/./Images/tabby-pay.svg" alt="master"></li>
+
+        </ul>
+    </div>
+</div>

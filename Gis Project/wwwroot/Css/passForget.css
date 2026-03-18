@@ -1,0 +1,58 @@
+.container .form .phone-number {
+  font-family: var(--main-en-font);
+  margin-top: 10px;
+}
+.container .form form {
+  margin-top: 20px;
+  min-height: 150px;
+}
+
+.container form > .inputs {
+  margin: 10px 0;
+}
+
+form .code-inputs {
+  display: flex;
+  margin-top: 2rem;
+  direction: ltr;
+}
+form .code-inputs #code-input {
+  font-size: 30px;
+  /* outline: none; */
+  margin: 0 8px;
+  text-align: center;
+  border: 2px solid var(--line-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  caret-color: transparent;
+  cursor: pointer;
+  font-family: var(--main-en-font);
+  font-weight: 700;
+  box-shadow: 1px 4px 15px 0px rgba(0, 0, 0, 0.12);
+}
+form .code-inputs #code-input:focus,
+form .code-inputs #code-input:valid {
+  border-color: var(--light-blue-color);
+}
+form .code-inputs #code-input::-webkit-inner-spin-button,
+form .code-inputs #code-input::-webkit-outer-spin-button {
+  display: none;
+}
+.container form .btns {
+  justify-content: center;
+  margin-top: 3rem;
+  flex-direction: column;
+}
+.container form .btns input[type="submit"] {
+  padding: 10px 3rem;
+  margin-top: 10px;
+}
+.container form .btns input[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.container form .btns input[type="submit"].active {
+  opacity: 1;
+  cursor: pointer;
+}

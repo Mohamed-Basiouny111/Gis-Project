@@ -1,5 +1,6 @@
 using Gis_Project.Context;
 using Gis_Project.Models;
+using Gis_Project.Repositories;
 using Gis_Project.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,10 @@ namespace Gis_Project
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            //Add User DI services
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
             //register identity services 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(op =>
             {
@@ -30,6 +35,7 @@ namespace Gis_Project
             builder.Services.AddDbContext<GisContext>(op =>
             {
                 op.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
+                op.UseLazyLoadingProxies();
             });
 
             var app = builder.Build();

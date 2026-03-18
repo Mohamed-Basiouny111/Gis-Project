@@ -1,8 +1,63 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "الرئيسية";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- section1-start -->
+<div class="container-fluid   h-padding">
+
+    <!-- slide-start -->
+    <div id="A" class="carousel slide" data-bs-ride="carousel">
+
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#A" data-bs-slide-to="2" aria-label="Slide 3 "
+                    class=" style img3"></button>
+            <button type="button" data-bs-target="#A" data-bs-slide-to="1" aria-label="Slide 2 "
+                    class=" style img2"></button>
+            <button type="button" data-bs-target="#A" data-bs-slide-to="0" class="active style img1" aria-current="true"
+                    aria-label="Slide 1"></button>
+        </div>
+        <div class="carousel-inner heigh rounded-4 ">
+
+            <div style="transition: 0.9s;" class="carousel-item active" data-bs-interval="5000">
+                <img src="~/./Images/slide3.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div style="transition: 0.9s;" class="carousel-item" data-bs-interval="500">
+                <img src="~/./Images/slide2.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div style="transition: 0.9s;" class="carousel-item" data-bs-interval="500">
+                <img src="~/./Images/slide1.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button style="opacity: 1;" class="carousel-control-prev" type="button" data-bs-target="#A" data-bs-slide="prev">
+            <i class="fa-solid fa-circle-chevron-left rounded-circle p-0 hov-sty"></i>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button style="opacity: 1;" class="carousel-control-next" type="button" data-bs-target="#A" data-bs-slide="next">
+            <i class="fa-solid fa-circle-chevron-right  rounded-circle p-0 hov-sty"></i>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <br/>
+
 </div>
+<!-- slide-end -->
+@section FootPartil {
+    <partial name="_FootPartil" />
+}
+
+@section Scripts {
+
+    <script src="~/JS/bootstrap.bundle.js"></script>
+
+    <!-- Home Js File -->
+    <script src="~/JS/home.js"></script>
+}
+
+@section Sheets {
+    <!-- Main Style Page -->
+    <link rel="stylesheet" href="~/Css/home.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+}

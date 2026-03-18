@@ -5,14 +5,12 @@ namespace Gis_Project.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
+        public string? FUllName { get; set; }
 
         public int? RegionId { get; set; }
         public virtual Region? Region { get; set; }
 
         public bool? IsBlocked { get; set; } = false;
-
 
         public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 

@@ -1,0 +1,67 @@
+﻿@model UserRegisterVM
+
+@{
+    ViewData["Title"] = "إنشاء حساب";
+    Layout = "_AccountLayout";
+}
+
+<div class="sidebar">
+
+    <ul>
+        <li>
+            <a asp-controller="Account" asp-action="Login">تسجيل الدخول</a>
+        <li>
+            <a asp-controller="Account" asp-action="Register" class="active">إنشاء حساب<span></span></a>
+        </li>
+    </ul>
+</div>
+
+<div class="form">
+    <h1>مرحبًا بك !</h1>
+    <p>قم بإنشاء حساب و ابدأ رحلتك معنا</p>
+
+    <form asp-action ="Register" method="post">
+
+        <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+
+        <div class="inputs">
+            <input asp-for="Email" autocomplete="Email" aria-required="true" placeholder="البريد الإلكتروني" required />
+            <i class="fa-solid fa-at"></i>
+        </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+        <div class="inputs">
+            <input asp-for="FullName" aria-required="true" placeholder="الإســــم" required />
+
+            <i class="fa-solid fa-user"></i>
+        </div>
+            <span asp-validation-for="FullName" class="text-danger"></span>
+
+        <div class="inputs">
+            <input asp-for="Password" autocomplete="new-password" aria-required="true" placeholder="كلمة المرور" required />
+
+            <i class="fa-solid fa-lock"></i>
+
+        </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+        <div class="inputs">
+            <input asp-for="ConfirmPassword" autocomplete="new-password" aria-required="true" placeholder="تأكيد كلمة المرور" required />
+
+            <i class="fa-solid fa-lock"></i>
+
+        </div>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+        <div class="btns">
+            <input id="registerSubmit" type="submit" value="إنشاء حساب" />
+            @* <a href="./ForgotPassword">هل نسيت كلمة المرور؟</a> *@
+        </div>
+    </form>
+
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

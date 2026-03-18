@@ -1,0 +1,49 @@
+﻿<!--Call the Toaster-->
+<partial name="_NotifyPartil" />
+
+<!-- Start SideBar Menu -->
+<div class="sidebar">
+
+    <div class="header">
+        <h4>  </h4>
+        <div class="sidebar-buger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <ul class="sidebar-links">
+
+        <li onclick ="Active(this)" class="admin-page ">
+            <a href="/Region/Index">
+                <span>المناطق</span>
+                <img src="~/Images/SidebarIcons/comments.png" alt="User Image" />
+            </a>
+        </li>
+
+        <li onclick="Active(this)" class="admin-page ">
+            <a href="/Home/FavActivite">
+                <span>الفعاليات المفضلة</span>
+                <img src="~/Images/SidebarIcons/fav.png" alt="User Image" />
+            </a>
+        </li>
+       
+         
+            <li onclick="Active(this)" class="admin-page ">
+                <a href="/subscribe/Index">
+                    <span>المشتركين</span>
+                    <img src="~/Images/SidebarIcons/subscribe.png" alt="User Image" />
+                </a>
+            </li>
+
+            <li onclick="Active(this)" class="admin-page ">
+                <a href="/AspNetUsers/Index">
+                    <span>المستخدمين</span>
+                    <img src="~/Images/SidebarIcons/user.png" alt="User Image" />
+                </a>
+            </li>
+         
+    </ul>
+
+</div>

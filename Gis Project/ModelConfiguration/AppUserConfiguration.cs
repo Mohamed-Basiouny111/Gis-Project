@@ -9,11 +9,10 @@ namespace Gis_Project.ModelConfiguration
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder.Property(hr => hr.FirstName)
+            builder.Property(hr => hr.FUllName)
                 .IsRequired().HasMaxLength(300);
 
-            builder.Property(hr => hr.LastName)
-                .IsRequired().HasMaxLength(300);
+        
     }
 }
 

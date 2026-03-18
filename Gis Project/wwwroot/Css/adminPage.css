@@ -1,0 +1,127 @@
+.content .profile {
+  position: relative;
+}
+.content .profile .profile-wave {
+  width: 100%;
+  height: 150px;
+}
+.content .profile .umove {
+  position: absolute;
+  width: 250px;
+  height: 150px;
+  bottom: -70px;
+  right: 30px;
+}
+.content .profile .umove img {
+  position: relative;
+  left: -54px;
+width: 130px;
+}
+
+.content .user-information {
+  padding: 9rem 6rem;
+  position: relative;
+}
+.content .user-information .username {
+  position: absolute;
+  right: 165px;
+  top: 50px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--header-color);
+}
+.content .user-information .user-data {
+  margin-top: 1rem;
+}
+.content .user-information .user-data .info {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line-color);
+}
+.content .user-information .user-data .info h4 {
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--header-color);
+  width: 200px;
+  margin: 0;
+}
+
+.back-photo {
+    width: 100%;
+    height: 147px;
+    background-color: var(--light-blue-color);
+    
+}
+
+
+
+
+
+.content .user-information .user-data .info span {
+  color: var(--paragraph-color);
+}
+.content .user-information .edit-btns {
+  display: flex;
+  align-items: center;
+  margin: 3rem 0;
+  column-gap: 1rem;
+}
+.content .user-information .edit-info {
+    color: #fff;
+    padding: 10px 50px;
+    /* margin: 3rem 0; */
+    border-radius: 35px;
+    background: var(--light-blue-color);
+    box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    transition-property: opacity;
+    transition-duration: var(--main-transition);
+    cursor: pointer;
+}
+
+.content .user-information .edit-info:hover {
+  opacity: 0.8;
+}
+@media (max-width: 768px) {
+  .content .profile .user {
+    width: 100px;
+    height: 100px;
+    bottom: -30px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+  
+  .content .user-information .username {
+text-align: center;
+font-size: 18px;
+  top: 15px;
+ left: 150px; 
+
+  }
+  .content .user-information {
+    padding: 5rem 1rem;
+  }
+  .content .user-information .edit-btns {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+  .content .user-information .user-data .info h4 {
+    width: 90px;
+    font-size: 12px;
+  }
+  .content .user-information .user-data .info span {
+    font-size: 12px;
+    
+  }
+
+
+}
+@media (max-width: 992px) {
+  .content .user-information .edit-info {
+    /* margin: 20px auto; */
+    font-size: 10px;
+    padding: 8px 35px;
+  }
+}
