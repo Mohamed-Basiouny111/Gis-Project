@@ -81,12 +81,17 @@ namespace Gis_Project
             app.UseAuthorization();
 
             app.MapStaticAssets();
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
-            
+            app.MapControllerRoute(
+            name: "ForUserRole",
+            pattern: "{controller=Home}/{action=Index}/{userId?}/{roleName?}");
+
+
             app.Run();
         }
     }

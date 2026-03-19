@@ -15,20 +15,34 @@
 
     <ul class="sidebar-links">
 
-        <li onclick ="Active(this)" class="admin-page ">
-            <a href="/Region/Index">
+         @if (User.IsInRole("Admin"))
+        {
+            <li onclick ="Active(this)" class="admin-page ">
+                <a href="/Region/Index">
                 <span>المناطق</span>
                 <img src="~/Images/SidebarIcons/comments.png" alt="User Image" />
             </a>
         </li>
+        }
+         @if (User.IsInRole("Admin"))
+        {
+            <li onclick ="Active(this)" class="admin-page ">
+                <a href="/Contract/Index">
+                <span>العقود</span>
+                    <img src="~/Images/SidebarIcons/subscribe.png" alt="User Image" />
+                </a>
+        </li>
+        }
 
+         @if (!User.IsInRole("NewUser"))
+        {
         <li onclick="Active(this)" class="admin-page ">
-            <a href="/Home/FavActivite">
-                <span>الفعاليات المفضلة</span>
+            <a href="/Asset/Index">
+                <span>الأصــول</span>
                 <img src="~/Images/SidebarIcons/fav.png" alt="User Image" />
             </a>
         </li>
-       
+        }
          
             <li onclick="Active(this)" class="admin-page ">
                 <a href="/subscribe/Index">
@@ -36,13 +50,16 @@
                     <img src="~/Images/SidebarIcons/subscribe.png" alt="User Image" />
                 </a>
             </li>
+         @if (User.IsInRole("Admin"))
+        {
 
             <li onclick="Active(this)" class="admin-page ">
-                <a href="/AspNetUsers/Index">
+                <a href="/User/Index">
                     <span>المستخدمين</span>
                     <img src="~/Images/SidebarIcons/user.png" alt="User Image" />
                 </a>
             </li>
+        }
          
     </ul>
 

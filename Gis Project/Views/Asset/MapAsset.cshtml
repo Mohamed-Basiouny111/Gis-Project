@@ -1,0 +1,84 @@
+﻿@model dynamic
+
+<main>
+    <div class="main-page">
+        
+        <!-- Start SideBar Menu -->
+        <partial name="_AdminPartil" />
+        <!-- End SideBar Menu -->
+        <!-- Start Page Content -->
+        <div class="content">
+            <div class="content-container  m-0 p-5">
+                <h3>موقع الأصل: @Model.Name</h3>
+                <div id="map" style="height: 400px; width: 100%; margin-bottom:20px;"></div>
+
+
+            </div>
+
+
+        </div>
+
+        
+        <!-- End Page Content -->
+    </div>
+
+    <style>
+        .tox .tox-toolbar-overlord {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .tox .tox-edit-area__iframe {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+    </style>
+
+    @section Sheets {
+        <!-- Bootstrap & DataTable CSS -->
+        <link rel="stylesheet" href="~/Css/bootstrap_452.min.css" />
+        <link rel="stylesheet" href="~/Css/dataTables_bootstrap4.min.css" />
+        <link rel="stylesheet" href="~/Css/all.min.css" />
+
+        <!-- Global Styles -->
+        <link rel="stylesheet" href="~/Css/global.css" />
+        <link rel="stylesheet" href="~/Css/home.css" />
+        <link rel="stylesheet" href="~/Css/adminGlobal.css" />
+        <link rel="stylesheet" href="~/Css/editInfoAdmin.css" />
+
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    }
+
+    @section Scripts {
+        <!-- TinyMCE -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
+
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var latitude = @Model.Latitude;
+                var longitude = @Model.Longitude;
+
+                var map = L.map('map').setView([latitude, longitude], 16);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                var marker = L.marker([latitude, longitude]).addTo(map);
+                marker.bindPopup(`
+                    <b>@Model.Name</b><br/>
+                    @Model.Address<br/>
+                    المستأجر: @Model.TenantName<br/>
+                    الحالة: @Model.Status
+                `).openPopup();
+            });
+        </script>
+
+        <!-- Alert & Admin JS Files -->
+        <script src="~/Js/addInfoAdminPanel.js"></script>
+        <script src="~/JS/adminGlobal.js"></script>
+    }
+</main>

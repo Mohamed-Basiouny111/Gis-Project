@@ -1,0 +1,228 @@
+﻿@model clsData_VM //To Complete Data
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gis Project || المستخدمين</title>
+
+    <!-- Page Logo -->
+    <link rel="icon" type="image/x-icon" href="Images/ticket (1).png" />
+
+
+
+    <!-- DataTable CDN CSS -->
+    <link rel="stylesheet" href="~/Css/bootstrap_452.min.css" />
+    <link rel="stylesheet" href="~/Css/dataTables_bootstrap4.min.css" />
+    <link rel="stylesheet" href="~/Css/bootstrap.min.css">
+
+    <!-- Font Awesome Page -->
+    <link rel="stylesheet" href="~/Css/all.min.css" />
+    <!-- Global Style Page -->
+    <link rel="stylesheet" href="~/Css/global.css" />
+    <!-- Main Style Page -->
+    <link rel="stylesheet" href="~/Css/home.css" />
+    <!-- Main Style Page -->
+    <link rel="stylesheet" href="~/Css/adminGlobal.css" />
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+    <!-- Toastr JS-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+</head>
+
+<body>
+    <main>
+
+        <!-- Start Header -->
+        <header>
+            <div class="container-fluid   ">
+                <div class="burger-list">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <img class="logoo" src="~/Images/master-card-pay.svg" alt="Eventix Logo" />
+                <ul class="menu-bar">
+                    <li><a href="/Home/index">الرئيسية</a></li>
+                </ul>
+
+                <partial name="_LoginPartial" />
+
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <div class="main-page">
+            <!-- Start SideBar Menu -->
+            <partial name="_AdminPartil" />
+            <!-- End SideBar Menu -->
+            <!-- Start Page Content -->
+            <div class="content  ">
+
+                <div class="content-container ">
+                    <div class="table-header">
+                      
+                        <!-- Start Search Bar -->
+                        <div class="searcher">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="searchInput" placeholder="بحث" />
+                            <a href="#">إبحث</a>
+                        </div>
+                        <!-- End Search Bar -->
+                    </div>
+                    <!-- Start DataTable -->
+                    <table id="example" class="table table-striped table-bordered" style="width: 100%">
+                        <thead>
+                            <tr>
+                                                         
+                                <th>الايميل</th>
+                                <th>الصلاحيات</th>
+                                <th>المنطقة</th>
+                                <th>تعديل المنطقة</th>
+                                <th>حظر</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Users)
+                            {
+                                <tr>
+                                    @* <td>
+                                        <a href="@Url.Action("Delete", "Region", new { id = item.Id })"
+                                           class="text-black btn-sm delete-job">
+
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
+                                    </td>  *@
+
+                                    
+                                    <td>@item.Email</td>
+                                    <td>
+                                        @foreach (var role in Model.Roles)
+                                        {
+                                            var isInRole = item.UserRoles.Contains(role.Name);
+
+                                            <a class="btn @(isInRole ? "btn-primary" : "btn-outline-primary")"
+                                               href="User/ToggleUserRole/@item.Id/@role.Name">
+                                                @role.Name
+                                            </a>
+                                        }
+                                    </td>
+                                    <td>@item?.Region?.Name</td>
+                                    
+                                    <td>
+                                        <a href="/User/UpdateRegion/@item.Id" class="edit-btn">
+                                            <i class="fa-solid fa-pen text-black"></i>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <form asp-action="ToggleUserBlock" method="post">
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden" name="userId" value="@item.Id" />
+
+                                            <button type="submit" style="border: none; background: none; padding: 0;">
+                                                <span class="d-flex justify-content-center m-auto">
+                                                    <label class="checkbox-container">
+                                                        <input type="checkbox" @(item.Block ? "checked" : "") disabled>
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </span>
+                                            </button>
+                                        </form>
+                                    </td>
+
+
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    <!-- End DataTable -->
+                </div>
+            </div>
+            <!-- End Page Content -->
+        </div>
+    </main>
+
+    <!-- Start Footer -->
+    <footer>
+        <div class="copyright">
+            حقوق النشر &copy; 2025 . كل الحقوق محفوظة.
+        </div>
+    </footer>
+    <!-- End Footer -->
+    <!-- Start Scroll To Top -->
+    <span class="scroll-top">
+        <i class="fa-solid fa-angle-up"></i>
+    </span>
+    <!-- End Scroll To Top -->
+    <!-- Start Language And DarkMode -->
+    <div class="setting">
+        <i class="fa-solid fa-moon dark-mode"></i>
+    </div>
+    <!-- End Language And DarkMode -->
+    <!-- Start Alert Delete -->
+    <div class="dlt-alert">
+        <span class="exit-btn">
+            <i class="fa-solid fa-xmark"></i>
+        </span>
+        <div class="icon"><i class="fa-regular fa-trash-can"></i></div>
+        <h3>أنت علي وشك حذف العنصر</h3>
+        <p>سيتم حذف كل بيانات هذا العنصر نهائياً <span>هل أنت متأكد؟</span></p>
+        <div class="dlt-btns">
+            <button class="cls">إلغاء</button>
+
+            <form class="d-inline-block" method="post" asp-controller="Category" asp-action="Delete">
+
+                <input type="number" value="3" name="Id" id="Id" hidden />
+
+
+                <button class="dlt">حذف</button>
+            </form>
+
+        </div>
+    </div>
+    <!-- End Alert Delete -->
+    <div class="alert-overlay"></div>
+
+
+    <!-- Textarea Editor JS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- DataTable JS CDN -->
+    <script src="~/Js/jquery.js"></script>
+    <script src="~/JS/jquery_dataTables.js"></script>
+    <script src="~/JS/dataTables_bootstrap4.js"></script>
+    <script>
+        new DataTable("#data-table");
+    </script>
+    <!-- Home Js File -->
+    <script src="~/JS/global.js"></script>
+    <!-- Home Js File -->
+    <script src="~/JS/adminGlobal.js"></script>
+    <script>
+        // ===== Confirm Delete =====
+        $('.delete-job').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        if (confirm('هل أنت متأكد من حذف هذا العنصر?')) {
+        window.location.href = url;
+        }
+        });
+    </script>
+</body>
+
+</html>

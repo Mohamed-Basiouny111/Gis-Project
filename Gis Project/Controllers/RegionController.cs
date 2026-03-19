@@ -1,6 +1,7 @@
 ﻿using Gis_Project.Models;
 using Gis_Project.Repositories;
 using Gis_Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Gis_Project.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RegionController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

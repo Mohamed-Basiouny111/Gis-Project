@@ -8,19 +8,20 @@
         <div class="user-info">
             <i class="fa-solid fa-angle-down"></i>
 
-            <span>@User.FindFirst("FullName")?.Value</span>
+            <span>@User.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value</span>
 
             <img src="~/Images/user.jpg" alt="User Image" />
         </div>
         <ul>
-          
+    @if (!User.IsInRole("NewUser"))
+    {
             <li>
-                <a href="/Profile/Index">
+                <a href="/Dashboard/Index">
                     <i class="fa-solid fa-user"></i>
-                    الصفحة الشخصية
+                    لــوحة التحـكم
                 </a>
             </li>
-
+    }
             <li>
 
 

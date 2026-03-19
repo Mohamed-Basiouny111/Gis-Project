@@ -10,7 +10,7 @@
         public int RegionId { get; set; }
         public virtual Region? Region { get; set; }
 
-        public int ContractId { get; set; }
+        public int? ContractId { get; set; }
         public virtual Contract? Contract { get; set; }
 
         public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();

@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+@model Gis_Project.Models.Contract
+
+@{
+    ViewData["Title"] = "تعديل عنصر";
+}
+<main>
+    <div class="main-page">
+
+        <!-- Start SideBar Menu -->
+        <partial name="_AdminPartil" />
+        <!-- End SideBar Menu -->
+        <!-- Start Page Content -->
+        <div class="content  ">
+
+            <div class="content-container  m-0 p-5">
+                <h3>تعديل عنصر</h3>
+                <form method="post" asp-action="Update" enctype="multipart/form-data">
+
+                    <partial name="_ContractPV" model="Model" />
+                </form>
+
+            </div>
+        </div>
+        <!-- End Page Content -->
+    </div>
+
+    <style>
+        .tox .tox-toolbar-overlord {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .tox .tox-edit-area__iframe {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+    </style>
+
+    @section Sheets {
+        <!-- DataTable CDN CSS -->
+        <link rel="stylesheet" href="~/Css/bootstrap_452.min.css" />
+        <link rel="stylesheet" href="~/Css/dataTables_bootstrap4.min.css" />
+
+        <link rel="stylesheet" href="~/Css/all.min.css" />
+        <!-- Global Style Page -->
+        <link rel="stylesheet" href="~/Css/global.css" />
+
+
+        <!-- Main Style Page -->
+        <link rel="stylesheet" href="~/Css/home.css" />
+        <!-- Main Style Page -->
+
+        <link rel="stylesheet" href="~/Css/adminGlobal.css" />
+
+        <link rel="stylesheet" href="~/Css/editInfoAdmin.css" />
+
+
+    }
+
+    @section Scripts {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"
+                referrerpolicy="origin"></script>
+        <!-- Alert Js File -->
+        <script src="~/Js/addInfoAdminPanel.js"></script>
+
+        <!-- Global Admin Js File -->
+        <script src="~/JS/adminGlobal.js"></script>
+    }
+
+</main>

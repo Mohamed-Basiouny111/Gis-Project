@@ -1,0 +1,44 @@
+﻿@model Gis_Project.Models.Asset
+
+<div class="row w-100">
+    <div class="input col-lg-12">
+        <h5>الإسم:</h5>
+        <input asp-for="Name" id="Name" type="text" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+
+    </div>
+
+    <div class="input col-lg-12">
+        <h5> العنوان :</h5>
+        <input asp-for="Address" id="Address" type="text"  required />
+        <span asp-validation-for="Address" class="text-danger"></span>
+
+    </div>
+
+    <div class="input col-lg-12">
+        <h5>اختر المنطقة:</h5>
+        <select asp-for="RegionId" class="form-select form-select-lg mb-3 " asp-items="@ViewBag.Regions" required>
+        </select>
+    </div>
+
+    <div class="input col-lg-12">
+        <h5>اختر العقد:</h5>
+        <select asp-for="ContractId" class="form-select form-select-lg mb-3 " asp-items="@ViewBag.Contracts" required>
+        </select>
+    </div>
+
+    <div class="input col-lg-12">
+        <h5> خط العرض :</h5>
+        <input asp-for="Latitude" id="Latitude" type="number" step="any" required />
+        <span asp-validation-for="Latitude" class="text-danger"></span>
+
+    </div>
+    <div class="input col-lg-12">
+        <h5> خط الطول :</h5>
+        <input asp-for="Longitude" id="Longitude" type="number" step="any" required />
+        <span asp-validation-for="Longitude" class="text-danger"></span>
+
+    </div>
+</div>
+
+<input type="submit" value="إضافة" />

@@ -1,0 +1,32 @@
+﻿@model Gis_Project.Models.Contract
+
+<div class="row w-100">
+    <div class="input col-lg-12">
+        <h5>المستأجر:</h5>
+        <input asp-for="TenantName" id="TenantName" type="text" required />
+        <span asp-validation-for="TenantName" class="text-danger"></span>
+
+    </div>
+
+    <div class="input col-lg-12">
+        <h5>قيمة القسط :</h5>
+        <input asp-for="MonthlyInstallment" id="MonthlyInstallment" type="number" step="any" required />
+        <span asp-validation-for="MonthlyInstallment" class="text-danger"></span>
+
+    </div>
+
+    <div class="input col-lg-12">
+        <h5>البدايه :</h5>
+        <input asp-for="StartDate" id="StartDate" type="date" required />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+
+    </div>
+
+    <div class="input col-lg-12">
+        <h5>عددالاقساط :</h5>
+        <input asp-for="TotalInstallments" id="TotalInstallments" type="number" required />
+        <span asp-validation-for="TotalInstallments" class="text-danger"></span>
+    </div>
+</div>
+
+<input type="submit" value="إضافة" />

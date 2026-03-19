@@ -34,7 +34,7 @@ namespace Gis_Project.Controllers
             var existingUser = await userManager.FindByEmailAsync(userRegisterVM.Email);
             if (existingUser != null)
             {
-                ModelState.AddModelError("Email", "Email Already Exist");
+                ModelState.AddModelError("", "البريد الإلكتروني مسجل بالفعل");
                 return View(userRegisterVM);
             }
 
@@ -104,7 +104,7 @@ namespace Gis_Project.Controllers
 
                         if (user.IsBlocked == true)
                         {
-                            ModelState.AddModelError("", "User Is Blocked ");
+                            ModelState.AddModelError(string.Empty, "تم حظر المستخدم");
                             return View(loginVM);
                         }
 
@@ -115,7 +115,7 @@ namespace Gis_Project.Controllers
                         };
                         //create Cookie 
                         await signInManager.SignInWithClaimsAsync(user, loginVM.RememberMe, claims);
-                        ViewBag.FullName = user.FUllName;
+
                         if (Url.IsLocalUrl(returnUrl))
                             return LocalRedirect(returnUrl);
                         else
@@ -124,7 +124,7 @@ namespace Gis_Project.Controllers
                     }
                 }
 
-                ModelState.AddModelError("", "User Name , Email Or Password Invalid");
+                ModelState.AddModelError(string.Empty, "اسم المستخدم أو البريد الإلكتروني أو كلمة المرور غير صحيحة");
 
             }
             ViewData["ReturnUrl"] = returnUrl;
