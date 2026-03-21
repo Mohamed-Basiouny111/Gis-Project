@@ -1,4 +1,4 @@
-﻿@model clsData_VM //To Complete Data
+﻿@model List<PaymentRecordVM>
 
 @{
     Layout = null;
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gis Project || الأصول</title>
+    <title>Gis Project || سجل المدفوعات</title>
 
     <!-- Page Logo -->
     <link rel="icon" type="image/x-icon" href="Images/ticket (1).png" />
@@ -69,17 +69,10 @@
             <!-- End SideBar Menu -->
             <!-- Start Page Content -->
             <div class="content  ">
-               
+
                 <div class="content-container ">
                     <div class="table-header">
-                          @if(User.IsInRole("Admin"))
-                           {
-                        <a href="/Asset/Create" class="btn-add">
-                            <i class="fa-solid fa-plus"></i>
-                          
-                            <span>إضافة عنصر</span>
-                        </a>
-                           }
+                       
                         <!-- Start Search Bar -->
                         <div class="searcher">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -92,72 +85,54 @@
                     <table id="example" class="table table-striped table-bordered" style="width: 100%">
                         <thead>
                             <tr>
-                                @if(User.IsInRole("Admin"))
-                           {
-                                <th></th>
-                                <th></th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th></th>
+                                    
                                 }
-                                <th></th>
-                                <th></th>
                                 <th>مسلسل</th>
-                                <th>العنوان</th>
+                                <th>الأصل</th>
                                 <th>المستأجر</th>
-                                <th>خط العرض</th>
-                                <th>خط الطول</th>
-                                <th>الحالة </th>
-                                <th>إضافة</th>
+                                <th>المنطقة</th>
+                                <th>المحصل</th>
                                 <th>التاريخ</th>
-                                <th>تعديل</th>
-                                <th>التاريخ</th>
+                                <th>القيمة المدفوعه</th>
+                                <th>شهر </th>
+                                <th>دفع متأخرات</th>
+                                <th>قيمة متأخرات</th>
+
+                                
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Assets)
+
+                            @foreach (var item in Model)
                             {
                                 <tr>
                                     @if (User.IsInRole("Admin"))
                                     {
                                         <td>
-                                            <a href="/Asset/Update/@item.Id" class="edit-btn">
-                                                <i class="fa-solid fa-pen text-black"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="@Url.Action("Delete", "Asset", new { id = item.Id })"
-                                            class="text-black btn-sm delete-job">
+                                            <a href="@Url.Action("Delete", "Payment", new { id = item.PaymentId })"
+                                               class="text-black btn-sm delete-job">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </a>
                                         </td>
+
+                                       
                                     }
-                                <td>
-                                    <a href="/Asset/Collect/@item.Id" class="edit-btn">
-                                        <i class="fa-solid fa-eye text-black"></i>
-                                    </a>
-                                </td>
-
-                                <td>
-                                    <a asp-action="MapAsset" asp-route-id="@item.Id" class="edit-btn">
-                                        <i class="fa-solid fa-map-location text-black"></i>
-                                    </a>
-                                </td>
-                                    <td>@item.Id</td>
-                                    <td>@item.Address</td>
-                                    <td>@item.Contract?.TenantName</td>
-                                    <td>@item.Latitude</td>
-                                    <td>@item.Longitude</td>
-
-                                <td>
-                                    @(item.Payments.Any(p => p.BillingMonth.Month == DateTime.Now.Month && p.PaidInstallment)
-                                                                        ? "تم التحصيل"
-                                                                        : "معلق")
-                                </td>
-
-                                    <td>@item.CreatedBy?.FUllName</td>
-                                    <td>@item.CreatedAt</td>
-                                    <td>@item.UpdatedBy?.FUllName</td>
-                                    <td>@item.UpdatedAt</td>
+                                    <td>@item.PaymentId</td>
+                                    <td>@item.AssetName</td>
+                                    <td>@item.TenantName</td>
+                                    <td>@item.RegionName</td>
+                                    <td>@item.CollectorName</td>
+                                    <td>@item.BillingMonth.ToString("yyyy-MM-dd")</td>
+                                    <td>@(item.PaidInstallment? item.AmountPaid - item.PaidLateFeesAmount : 0)</td>
+                                    <td>@item.BillingMonth.ToString("yyyy-MM")</td>
+                                    <td>@(item.PaidLateFeesAmount > 0 ? item.PaidLateFeesAmount : 0)</td>
+                                    <td>@(item.AmountPaid)</td>
                                 </tr>
                             }
+                                                        }
                         </tbody>
                     </table>
                     <!-- End DataTable -->

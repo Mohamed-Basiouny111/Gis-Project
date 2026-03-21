@@ -1,0 +1,169 @@
+﻿@model PaymentVM
+
+@{
+    ViewData["Title"] = "نموذج التحصيل";
+}
+
+<main>
+    <div class="main-page">
+
+        <!-- Sidebar -->
+        <partial name="_AdminPartil" />
+
+        <!-- Content -->
+        <div class="content">
+
+            <div class="content-container p-5">
+
+                <h3 class="mb-4">نموذج التحصيل</h3>
+
+                <!-- بيانات الأصل -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        بيانات الأصل
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <strong>اسم الأصل:</strong>
+                                <p>@Model.AssetName</p>
+                            </div>
+
+                            <div class="col-md-4">
+                                <strong>العنوان:</strong>
+                                <p>@Model.Address</p>
+                            </div>
+
+                            <div class="col-md-4">
+                                <strong>المستأجر:</strong>
+                                <p>@Model.TenantName</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <strong>اجمالي الأقساط:</strong>
+                                <p>@Model.TotalInstallments</p>
+                            </div>
+
+                            <div class="col-md-4">
+                                <strong>الأقساط المتبقية:</strong>
+                                <p>@Model.RemainingInstallments</p>
+                            </div>
+
+                          
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- البيانات المالية -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        البيانات المالية
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">القسط الشهري</label>
+                                <input asp-for="MonthlyInstallment" class="form-control" readonly />
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">المتأخرات</label>
+                                <input asp-for="LateAmount" class="form-control" readonly />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- فورم التحصيل -->
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        تسجيل عملية التحصيل
+                    </div>
+
+                    <div class="card-body">
+
+                        <form asp-action="Collect" method="post">
+
+                            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                            <input type="hidden" asp-for="AssetId" />
+                            <input type="hidden" asp-for="AssetName" />
+                            <input type="hidden" asp-for="Address" />
+                            <input type="hidden" asp-for="TenantName" />
+                            <input type="hidden" asp-for="MonthlyInstallment" />
+                            <input type="hidden" asp-for="LateAmount" />
+
+                            <input type="hidden" asp-for="TotalInstallments" />
+                            <input type="hidden" asp-for="RemainingInstallments" />
+
+                            <div class="row">
+
+                                <!-- دفع القسط -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">دفع القسط الشهري</label>
+                                    <div class="form-check">
+                                        <input asp-for="PaidInstallment" class="form-check-input" />
+                                        <label class="form-check-label">
+                                            تم دفع القسط
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- دفع متأخرات -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">دفع من المتأخرات</label>
+                                    <input asp-for="PaidLateAmount" type="number" min="0" step="0.01" class="form-control" />
+                                    <span asp-validation-for="PaidLateAmount" class="text-danger"></span>
+                                </div>
+
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="mt-4 d-flex gap-2">
+
+                                <button type="submit" class="btn btn-success">
+                                    تسجيل الدفع
+                                </button>
+
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    رجوع
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @section Sheets {
+        <link rel="stylesheet" href="~/Css/bootstrap_452.min.css" />
+        <link rel="stylesheet" href="~/Css/all.min.css" />
+        <link rel="stylesheet" href="~/Css/global.css" />
+        <link rel="stylesheet" href="~/Css/home.css" />
+        <link rel="stylesheet" href="~/Css/adminGlobal.css" />
+    }
+
+    @section Scripts {
+
+        <!-- Validation Scripts -->
+        <partial name="_ValidationScriptsPartial" />
+
+        <!-- Admin Scripts -->
+        <script src="~/Js/addInfoAdminPanel.js"></script>
+        <script src="~/JS/adminGlobal.js"></script>
+
+    }
+
+</main>

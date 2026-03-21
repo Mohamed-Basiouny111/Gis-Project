@@ -2,11 +2,12 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-@model Gis_Project.Models.Region
+@model DashboardVM
 
 @{
     ViewData["Title"] = "لوحة التحكم";
 }
+
 <main>
     <div class="main-page">
 
@@ -14,52 +15,195 @@
         <partial name="_AdminPartil" />
         <!-- End SideBar Menu -->
         <!-- Start Page Content -->
-        <div class="content  ">
+        <div class="content">
+            <br />
+            <br />
+            <div class="content-container  m-0 ">
+            <h3>لوحة التحكم</h3>
+            </div>
+            <div class="container-fluid mt-4">
 
-         
+                <!-- ===================== CARDS ===================== -->
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card shadow-sm text-center p-3 border-0">
+                            <h6 class="text-muted">عدد الأصول</h6>
+                            <h3 class="fw-bold">@Model.TotalAssets</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card shadow-sm text-center p-3 border-0">
+                            <h6 class="text-muted">المتأخرات</h6>
+                            <h3 class="fw-bold text-danger">@Model.TotalLateAmount</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card shadow-sm text-center p-3 border-0">
+                            <h6 class="text-muted">تحصيل اليوم</h6>
+                            <h3 class="fw-bold text-success">@Model.TodayCollection</h3>
+                        </div>
+                    </div>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="card shadow-sm text-center p-3 border-0">
+                                <h6 class="text-muted">عدد المحصلين</h6>
+                                <h3 class="fw-bold">@Model.Collectors.Count</h3>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <!-- ===================== COLLECTORS ===================== -->
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="card shadow-sm border-0 mt-4">
+                        <div class="card-body">
+                            <h5 class="mb-3">أداء المحصلين</h5>
+
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>المحصل</th>
+                                        <th>إجمالي التحصيل</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var c in Model.Collectors)
+                                    {
+                                        <tr>
+                                            <td>@c.Name</td>
+                                            <td class="text-success fw-bold">@c.TotalCollected</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+
+                <!-- ===================== MAP ===================== -->
+                <div class="card shadow-sm border-0 mt-4">
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5>خريطة الأصول</h5>
+
+                            <select id="regionFilter" class="form-control w-auto">
+                                <option value="">كل المناطق</option>
+                                @foreach (var r in Model.Assets.Select(a => a.RegionName).Distinct())
+                                {
+                                    <option value="@r">@r</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div id="map" style="height:450px; border-radius:10px;"></div>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
         <!-- End Page Content -->
+
     </div>
 
+    <!-- Styles -->
     <style>
-        .tox .tox-toolbar-overlord {
-            background-color: var(--background-color);
-            color: var(--text-color);
+        .card {
+            border-radius: 12px;
+            transition: 0.3s;
         }
 
-        .tox .tox-edit-area__iframe {
-            background-color: var(--background-color);
-            color: var(--text-color);
-        }
+            .card:hover {
+                transform: translateY(-5px);
+            }
     </style>
 
     @section Sheets {
-        <!-- DataTable CDN CSS -->
         <link rel="stylesheet" href="~/Css/bootstrap_452.min.css" />
         <link rel="stylesheet" href="~/Css/dataTables_bootstrap4.min.css" />
-
         <link rel="stylesheet" href="~/Css/all.min.css" />
-        <!-- Global Style Page -->
         <link rel="stylesheet" href="~/Css/global.css" />
-
-        <!-- Main Style Page -->
         <link rel="stylesheet" href="~/Css/home.css" />
-        <!-- Main Style Page -->
-
         <link rel="stylesheet" href="~/Css/adminGlobal.css" />
-
         <link rel="stylesheet" href="~/Css/editInfoAdmin.css" />
 
-
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     }
 
     @section Scripts {
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"
-                referrerpolicy="origin"></script>
-        <!-- Alert Js File -->
-        <script src="~/Js/addInfoAdminPanel.js"></script>
 
-        <!-- Global Admin Js File -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
+
+        <!-- Leaflet -->
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+        <script>
+            var map = L.map('map').setView([30.0444, 31.2357], 11);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            var markers = [];
+            var assets = @Html.Raw(Json.Serialize(Model.Assets));
+
+            function loadMarkers(region = "") {
+
+                markers.forEach(m => map.removeLayer(m));
+                markers = [];
+
+                var bounds = [];
+
+                assets.forEach(a => {
+
+                    if (region === "" || a.regionName === region) {
+
+                        var latLng = [a.lat, a.lng];
+
+                        var marker = L.marker(latLng)
+                            .addTo(map)
+                            .bindPopup(`
+                                <b>${a.name}</b><br/>
+                                ${a.address}<br/>
+                                المنطقة: ${a.regionName}
+                            `);
+
+                        markers.push(marker);
+                        bounds.push(latLng);
+                    }
+                });
+
+              
+                if (bounds.length === 1) {
+                    map.setView(bounds[0], 17); 
+                }
+                else if (bounds.length > 1) {
+                    map.fitBounds(bounds, { padding: [50, 50] });
+                }
+                else {
+                    map.setView([30.0444, 31.2357], 11);
+                }
+            }
+
+            loadMarkers();
+
+            document.getElementById("regionFilter")
+                .addEventListener("change", function () {
+                    loadMarkers(this.value);
+                });
+        </script>
+
+        <script src="~/Js/addInfoAdminPanel.js"></script>
         <script src="~/JS/adminGlobal.js"></script>
     }
 

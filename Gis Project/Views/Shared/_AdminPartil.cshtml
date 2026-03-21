@@ -23,9 +23,7 @@
                 <img src="~/Images/SidebarIcons/comments.png" alt="User Image" />
             </a>
         </li>
-        }
-         @if (User.IsInRole("Admin"))
-        {
+       
             <li onclick ="Active(this)" class="admin-page ">
                 <a href="/Contract/Index">
                 <span>العقود</span>
@@ -43,15 +41,15 @@
             </a>
         </li>
         }
-         
+        @if (User.IsInRole("Admin"))
+        {
             <li onclick="Active(this)" class="admin-page ">
-                <a href="/subscribe/Index">
-                    <span>المشتركين</span>
+                <a href="/Payment/Index">
+                    <span>سجل المدفوعات</span>
                     <img src="~/Images/SidebarIcons/subscribe.png" alt="User Image" />
                 </a>
             </li>
-         @if (User.IsInRole("Admin"))
-        {
+        
 
             <li onclick="Active(this)" class="admin-page ">
                 <a href="/User/Index">

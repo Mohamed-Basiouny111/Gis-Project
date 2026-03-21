@@ -3,6 +3,7 @@ using Gis_Project.Repositories;
 using Gis_Project.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace Gis_Project.Controllers
@@ -68,13 +69,21 @@ namespace Gis_Project.Controllers
                     Text = r.Name
                 });
 
-            var contracts = await contractRepo.GetAllAsync();
-            ViewBag.Contracts = contracts
-                .Select(c => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+            var usedContracts = (await _unitOfWork
+     .GetRepository<Asset, int>()
+     .GetAllAsync())
+     .Select(a => a.ContractId)
+     .ToList();
+
+            ViewBag.Contracts = (await _unitOfWork
+                .GetRepository<Contract, int>()
+                .GetAllAsync())
+                .Where(c => !usedContracts.Contains(c.Id))
+                .Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
                     Text = c.TenantName
-                });
+                }).ToList();
 
             return View();
         }
@@ -123,15 +132,18 @@ namespace Gis_Project.Controllers
                 })
                 .ToList();
 
-            var contracts = await contractRepo.GetAllAsync();
-            ViewBag.Contracts = contracts
-                .Select(c => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+            var usedContracts = (await assetRepo.GetAllAsync())
+     .Where(a => a.Id != id)
+     .Select(a => a.ContractId)
+     .ToList();
+
+            ViewBag.Contracts = (await _unitOfWork.GetRepository<Contract, int>().GetAllAsync())
+                .Where(c => !usedContracts.Contains(c.Id) || c.Id == asset.ContractId)
+                .Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
-                    Text = c.TenantName,
-                    Selected = asset.ContractId == c.Id
-                })
-                .ToList();
+                    Text = c.TenantName
+                }).ToList();
 
             return View(asset);
         }
@@ -246,6 +258,132 @@ namespace Gis_Project.Controllers
             };
 
             return View(assetLocation);
+        }
+
+        public async Task<IActionResult> Collect(int id)
+        {
+            var assetRepo = _unitOfWork.GetRepository<Asset, int>();
+            var paymentRepo = _unitOfWork.GetRepository<Payment, int>();
+
+            var asset = await assetRepo.GetByIdAsync(id);
+            if (asset == null)
+                return RedirectToAction("Index");
+
+            var payments = await paymentRepo.GetAllAsync();
+
+            var assetPayments = payments.Where(p => p.AssetId == id).ToList();
+
+            var totalPaid = assetPayments.Sum(p => p.AmountPaid);
+
+            var totalExpected = asset.Contract.MonthlyInstallment * asset.Contract.TotalInstallments;
+
+            var lateAmount = totalExpected - totalPaid;
+            if (lateAmount < 0) lateAmount = 0;
+
+            var totalPaidInstallments = assetPayments.Count(p => p.PaidInstallment);
+           
+            var vm = new PaymentVM
+            {
+                AssetId = asset.Id,
+                AssetName = asset.Name,
+                Address = asset.Address,
+                TenantName = asset.Contract?.TenantName ?? "",
+
+                MonthlyInstallment = asset.Contract.MonthlyInstallment,
+                LateAmount = lateAmount,
+
+                TotalInstallments = asset.Contract.TotalInstallments,
+                RemainingInstallments = asset.Contract.TotalInstallments - totalPaidInstallments,
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Collect(PaymentVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            var paymentRepo = _unitOfWork.GetRepository<Payment, int>();
+            var assetRepo = _unitOfWork.GetRepository<Asset, int>();
+
+            var asset = await assetRepo.GetByIdAsync(vm.AssetId);
+            if (asset == null)
+                return RedirectToAction("Index");
+
+            var payments = await paymentRepo.GetAllAsync();
+            var assetPayments = payments.Where(p => p.AssetId == vm.AssetId).ToList();
+
+            var totalPaid = assetPayments.Sum(p => p.AmountPaid);
+            var totalExpected = asset.Contract.MonthlyInstallment * asset.Contract.TotalInstallments;
+
+            var lateAmount = totalExpected - totalPaid;
+            if (lateAmount < 0) lateAmount = 0;
+
+            var paidInstallmentsCount = assetPayments.Count(p => p.PaidInstallment);
+            var remainingInstallments = asset.Contract.TotalInstallments - paidInstallmentsCount;
+
+            decimal amount = 0;
+            decimal paidLate = 0;
+
+            if (!vm.PaidInstallment && vm.PaidLateAmount <= 0)
+            {
+                TempData["Notifyinfo"] = "يجب إدخال عملية دفع";
+                return RedirectToAction(nameof(Index));
+            }
+
+           
+            if (vm.PaidInstallment)
+            {
+                var alreadyPaid = assetPayments.Any(p =>
+                    p.BillingMonth.Month == DateTime.Now.Month &&
+                    p.BillingMonth.Year == DateTime.Now.Year &&
+                    p.PaidInstallment);
+
+                if (alreadyPaid)
+                {
+                    TempData["Notifyinfo"] = "تم دفع قسط هذا الشهر بالفعل";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                if (remainingInstallments <= 0)
+                {
+                    TempData["Notifyinfo"] = "تم سداد جميع الأقساط بالفعل";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                amount += asset.Contract.MonthlyInstallment;
+            }
+
+           
+            if (vm.PaidLateAmount > 0)
+            {
+                paidLate = vm.PaidLateAmount > lateAmount ? lateAmount : vm.PaidLateAmount;
+
+                amount += paidLate;
+            }
+
+            var payment = new Payment
+            {
+                AssetId = vm.AssetId,
+                CollectorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+
+                AmountPaid = amount,
+                PaidInstallment = vm.PaidInstallment,
+                PaidLateFeesAmount = paidLate,
+
+                BillingMonth = DateTime.Now
+            };
+
+            await paymentRepo.AddAsync(payment);
+            await _unitOfWork.CompleteAsync();
+
+            TempData["NotifySuccess"] = "تم تسجيل التحصيل بنجاح";
+
+            return RedirectToAction("Index");
         }
     }
 }
