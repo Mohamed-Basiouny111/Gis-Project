@@ -113,7 +113,7 @@
                                             var isInRole = item.UserRoles.Contains(role.Name);
 
                                             <a class="btn @(isInRole ? "btn-primary" : "btn-outline-primary")"
-                                               href="User/ToggleUserRole/@item.Id/@role.Name">
+                                               href="/User/ToggleUserRole/@item.Id/@role.Name">
                                                 @role.Name
                                             </a>
                                         }
